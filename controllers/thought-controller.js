@@ -13,7 +13,7 @@ const thoughtController = {
 
     async getThoughtById(req, res) {
         try {
-            const thoughtData = await Thought.findById(req.params.thought - id);
+            const thoughtData = await Thought.findById(req.params.thoughtId);
             if (!thoughtData) {
                 res.status(404).json({ message: 'No thought found with this id!' });
                 return;
@@ -43,7 +43,7 @@ const thoughtController = {
 
     async updateThought(req, res) {
         try {
-            const thoughtData = await Thought.findByIdAndUpdate(req.params.thought - id, req.body, { new: true, runValidators: true });
+            const thoughtData = await Thought.findByIdAndUpdate(req.params.thoughtId, req.body, { new: true, runValidators: true });
             if (!thoughtData) {
                 res.status(404).json({ message: 'No thought found with this id!' });
                 return;
@@ -57,7 +57,7 @@ const thoughtController = {
 
     async deleteThought(req, res) {
         try {
-            const thoughtData = await Thought.findByIdAndDelete(req.params.thought - id);
+            const thoughtData = await Thought.findByIdAndDelete(req.params.thoughtId);
             if (!thoughtData) {
                 res.status(404).json({ message: 'No thought found with this id!' });
                 return;
@@ -72,7 +72,7 @@ const thoughtController = {
 
     async addReaction(req, res) {
         try {
-            const thoughtData = await Thought.findByIdAndUpdate(req.params.thought - id, { $push: { reactions: req.body } }, { new: true });
+            const thoughtData = await Thought.findByIdAndUpdate(req.params.thoughtId, { $push: { reactions: req.body } }, { new: true });
             if (!thoughtData) {
                 res.status(404).json({ message: 'No thought found with this id!' });
                 return;
@@ -86,7 +86,7 @@ const thoughtController = {
 
     async deleteReaction(req, res) {
         try {
-            const thoughtData = await Thought.findByIdAndUpdate(req.params.thought - id, { $pull: { reactions: { reactionId: req.params.reaction - id } } }, { new: true });
+            const thoughtData = await Thought.findByIdAndUpdate(req.params.thoughtId, { $pull: { reactions: { reactionId: req.params.reactionId } } }, { new: true });
             if (!thoughtData) {
                 res.status(404).json({ message: 'No thought found with this id!' });
                 return;
