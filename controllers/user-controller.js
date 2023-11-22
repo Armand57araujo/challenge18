@@ -12,7 +12,7 @@ const userController = {
     },
     async getUserById(req, res) {
         try {
-            const userData = await User.findById(req.params.user - id).populate('thoughts').populate('friends');
+            const userData = await User.findById(req.params.userId).populate('thoughts').populate('friends');
             res.json(userData);
         }
         catch (err) {
@@ -33,7 +33,7 @@ const userController = {
 
     async updateUser(req, res) {
         try {
-            const userData = await User.findByIdAndUpdate(req.params.user - id, req.body, { new: true, runValidators: true });
+            const userData = await User.findByIdAndUpdate(req.params.userId, req.body, { new: true, runValidators: true });
             res.json(userData);
         }
         catch (err) {
@@ -46,7 +46,7 @@ const userController = {
 
     async deleteUser(req, res) {
         try {
-            const userData = await User.findByIdAndDelete(req.params.user - id);
+            const userData = await User.findByIdAndDelete(req.params.userId);
             res.json(userData);
         }
         catch (err) {
@@ -57,7 +57,7 @@ const userController = {
 
     async addFriend(req, res) {
         try {
-            const userData = await User.findByIdAndUpdate(req.params.user - id, { $push: { friends: req.params.friend - id } }, { new: true });
+            const userData = await User.findByIdAndUpdate(req.params.userId, { $push: { friends: req.params.friendId } }, { new: true });
             res.json(userData);
         }
         catch (err) {
@@ -69,7 +69,7 @@ const userController = {
 
     async deleteFriend(req, res) {
         try {
-            const userData = await User.findByIdAndUpdate(req.params.user - id, { $pull: { friends: req.params.friend - id } }, { new: true });
+            const userData = await User.findByIdAndUpdate(req.params.userId, { $pull: { friends: req.params.friendId } }, { new: true });
             res.json(userData);
         }
         catch (err) {
